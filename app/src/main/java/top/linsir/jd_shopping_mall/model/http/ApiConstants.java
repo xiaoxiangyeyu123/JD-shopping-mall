@@ -1,5 +1,5 @@
 
-package top.linsir.jd_shopping_mall.api;
+package top.linsir.jd_shopping_mall.model.http;
 
 public class ApiConstants {
 public static final String BASEURL="http://www.chewuyou.vip/index.php/Home/";

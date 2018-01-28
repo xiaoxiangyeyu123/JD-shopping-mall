@@ -1,4 +1,4 @@
-package top.linsir.jd_shopping_mall.api;
+package top.linsir.jd_shopping_mall.model.http;
 
 
 import android.support.annotation.NonNull;

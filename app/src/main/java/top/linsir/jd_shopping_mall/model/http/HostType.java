@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package top.linsir.jd_shopping_mall.api;
+package top.linsir.jd_shopping_mall.model.http;
 
 public class HostType {
 
