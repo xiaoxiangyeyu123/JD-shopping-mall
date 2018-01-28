@@ -17,7 +17,11 @@ public class AppModule {
     public AppModule(App application) {
         this.application = application;
     }
-
+    @Provides
+    @Singleton
+    App provideApplicationContext() {
+        return application;
+    }
 
 
 }
