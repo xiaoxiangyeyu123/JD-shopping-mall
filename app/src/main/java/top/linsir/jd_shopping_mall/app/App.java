@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.multidex.MultiDex;
 
+import top.linsir.jd_shopping_mall.di.component.AppComponent;
+import top.linsir.jd_shopping_mall.di.component.DaggerAppComponent;
+import top.linsir.jd_shopping_mall.di.module.AppModule;
 import top.linsir.jd_shopping_mall.service.InitializeService;
 
 import static java.lang.System.exit;
@@ -16,7 +19,7 @@ import static java.lang.System.exit;
 
 public class App extends Application {
     private static App instance;
-
+    public static AppComponent appComponent;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -50,5 +53,14 @@ public class App extends Application {
         super.onLowMemory();
         android.os.Process.killProcess(android.os.Process.myPid());
         exit(0);
+    }
+    public static AppComponent getAppComponent(){
+        if (appComponent == null) {
+            appComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(instance))
+                    .build();
+
+        }
+        return appComponent;
     }
 }
