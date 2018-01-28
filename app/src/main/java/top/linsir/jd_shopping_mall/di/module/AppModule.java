@@ -5,6 +5,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import top.linsir.jd_shopping_mall.app.App;
+import top.linsir.jd_shopping_mall.model.db.DBHelper;
+import top.linsir.jd_shopping_mall.model.db.RealmHelper;
 
 
 /**
@@ -23,5 +25,9 @@ public class AppModule {
         return application;
     }
 
-
+    @Provides
+    @Singleton
+    DBHelper provideDBHelper(RealmHelper realmHelper) {
+        return realmHelper;
+    }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.multidex.MultiDex;
 
+import io.realm.Realm;
 import top.linsir.jd_shopping_mall.di.component.AppComponent;
 import top.linsir.jd_shopping_mall.di.component.DaggerAppComponent;
 import top.linsir.jd_shopping_mall.di.module.AppModule;
@@ -43,6 +44,8 @@ public class App extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+        //初始化数据库
+        Realm.init(getApplicationContext());
         //在子线程中完成其他初始化
         InitializeService.start(this);
     }
