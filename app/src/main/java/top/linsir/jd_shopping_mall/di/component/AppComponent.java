@@ -1,11 +1,14 @@
 package top.linsir.jd_shopping_mall.di.component;
 
+import android.app.Activity;
+
 import javax.inject.Singleton;
 import dagger.Component;
 import top.linsir.jd_shopping_mall.app.App;
 import top.linsir.jd_shopping_mall.app.AppManager;
 import top.linsir.jd_shopping_mall.di.module.AppModule;
 import top.linsir.jd_shopping_mall.model.db.RealmHelper;
+import top.linsir.jd_shopping_mall.ui.root.activity.RootActivity;
 
 /**
  * 作者：潇湘夜雨 on 2018/1/28.

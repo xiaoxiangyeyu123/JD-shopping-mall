@@ -1,10 +1,13 @@
 package top.linsir.jd_shopping_mall.ui.root.module;
 
+import android.app.Activity;
+
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import dagger.Module;
 import dagger.Provides;
 import top.linsir.jd_shopping_mall.di.scope.ActivityScope;
+import top.linsir.jd_shopping_mall.ui.root.activity.RootActivity;
 import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
 
 /**
@@ -14,10 +17,6 @@ import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
 @Module
 public class RootModule {
     private RootContract.View view;
-
-    public RootModule(RootContract.View view) {
-        this.view = view;
-    }
 
     @ActivityScope
     @Provides

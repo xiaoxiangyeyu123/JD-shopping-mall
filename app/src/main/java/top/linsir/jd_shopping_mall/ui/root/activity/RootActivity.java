@@ -14,15 +14,15 @@ import butterknife.BindView;
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BaseActivity;
 import top.linsir.jd_shopping_mall.di.component.AppComponent;
-import top.linsir.jd_shopping_mall.di.component.DaggerRootCompoent;
 import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
+import top.linsir.jd_shopping_mall.ui.root.presenter.RootPresenter;
 
 /**
  * 作者：潇湘夜雨 on 2018/1/29.
  * 邮箱：879689064@qq.com
  */
 
-public class RootActivity<RootPresenter> extends BaseActivity implements RootContract.View{
+public class RootActivity extends BaseActivity<RootPresenter> implements RootContract.View{
     @BindView(R.id.maincontent)
     FrameLayout maincontent;
     @BindView(android.R.id.tabcontent)
@@ -50,7 +50,7 @@ public class RootActivity<RootPresenter> extends BaseActivity implements RootCon
 
     @Override
     protected void initInject(AppComponent appComponent) {
-        DaggerRootCompoent.builder().appComponent(appComponent).build().inject(this);
+       // DaggerRootCompoent.builder().appComponent(appComponent).build().inject(this);
     }
 
 

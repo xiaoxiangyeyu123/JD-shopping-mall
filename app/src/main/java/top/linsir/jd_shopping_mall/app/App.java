@@ -8,6 +8,7 @@ import android.support.multidex.MultiDex;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import top.linsir.jd_shopping_mall.di.component.AppComponent;
+
 import top.linsir.jd_shopping_mall.di.component.DaggerAppComponent;
 import top.linsir.jd_shopping_mall.di.module.AppModule;
 import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetStateReceiver;
