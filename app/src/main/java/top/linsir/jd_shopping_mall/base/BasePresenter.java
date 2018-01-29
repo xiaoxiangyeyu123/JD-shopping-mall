@@ -1,9 +1,19 @@
 package top.linsir.jd_shopping_mall.base;
 
 import android.app.Activity;
+import android.content.Context;
 
+import org.reactivestreams.Subscription;
+
+import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.subscribers.DisposableSubscriber;
+import top.linsir.jd_shopping_mall.base.rxbase.RxSchedulers;
+import top.linsir.jd_shopping_mall.base.rxbase.RxSubscriber;
+import top.linsir.jd_shopping_mall.model.bean.User;
+import top.linsir.jd_shopping_mall.model.http.Api;
 import top.linsir.jd_shopping_mall.utils.PreconditionUtils;
 
 /**
@@ -11,13 +21,14 @@ import top.linsir.jd_shopping_mall.utils.PreconditionUtils;
  * 邮箱：879689064@qq.com
  */
 
-public class BasePresenter<M extends BaseModel,V extends BaseView> implements IPresenter{
+public class BasePresenter<M extends BaseModel, V extends BaseView> implements IPresenter {
     protected final String TAG = this.getClass().getSimpleName();
     protected CompositeDisposable mCompositeDisposable;
 
     protected M mModel;
     protected V mRootView;
     public RxManager mRxManage = new RxManager();
+
     /**
      * 如果当前页面同时需要 Model 层和 View 层,则使用此构造函数(默认)
      *
@@ -31,6 +42,7 @@ public class BasePresenter<M extends BaseModel,V extends BaseView> implements IP
         this.mRootView = rootView;
         onStart();
     }
+
     /**
      * 如果当前页面不需要操作数据,只需要 View 层,则使用此构造函数
      *
@@ -41,6 +53,7 @@ public class BasePresenter<M extends BaseModel,V extends BaseView> implements IP
         this.mRootView = rootView;
         onStart();
     }
+
     @Override
     public void onStart() {
 
@@ -56,6 +69,7 @@ public class BasePresenter<M extends BaseModel,V extends BaseView> implements IP
         this.mRootView = null;
         this.mCompositeDisposable = null;
     }
+
     /**
      * 将 {@link Disposable} 添加到 {@link CompositeDisposable} 中统一管理
      * 可在 {@link Activity#onDestroy()} 中使用 {@link #unDispose()} 停止正在执行的 RxJava 任务,避免内存泄漏
