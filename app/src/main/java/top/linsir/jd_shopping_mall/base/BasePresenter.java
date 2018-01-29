@@ -1,19 +1,8 @@
 package top.linsir.jd_shopping_mall.base;
 
 import android.app.Activity;
-import android.content.Context;
-
-import org.reactivestreams.Subscription;
-
-import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.subscribers.DisposableSubscriber;
-import top.linsir.jd_shopping_mall.base.rxbase.RxSchedulers;
-import top.linsir.jd_shopping_mall.base.rxbase.RxSubscriber;
-import top.linsir.jd_shopping_mall.model.bean.User;
-import top.linsir.jd_shopping_mall.model.http.Api;
 import top.linsir.jd_shopping_mall.utils.PreconditionUtils;
 
 /**

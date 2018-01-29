@@ -17,11 +17,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import top.linsir.jd_shopping_mall.R;
-import top.linsir.jd_shopping_mall.app.App;
 import top.linsir.jd_shopping_mall.app.AppManager;
-import top.linsir.jd_shopping_mall.di.component.ActivityComponent;
-import top.linsir.jd_shopping_mall.di.component.DaggerActivityComponent;
-import top.linsir.jd_shopping_mall.di.module.ActivityModule;
 import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetChangeObserver;
 import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetStateReceiver;
 import top.linsir.jd_shopping_mall.utils.ToastUtils;
@@ -51,6 +47,7 @@ public abstract class BaseSimpleActivity  extends AppCompatActivity {
         setContentView(getLayoutId());
         bind = ButterKnife.bind(this);
         mContext = this;
+        onViewCreated();
         initNetWorkState();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (null != mToolbar) {
@@ -65,7 +62,9 @@ public abstract class BaseSimpleActivity  extends AppCompatActivity {
         initView();
 
     }
+    protected void onViewCreated() {
 
+    }
     protected void initNetWorkState() {
         mNetChangeObserver = new NetChangeObserver() {
             @Override

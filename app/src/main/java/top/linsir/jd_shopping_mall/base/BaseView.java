@@ -7,14 +7,7 @@ package top.linsir.jd_shopping_mall.base;
 
 public interface BaseView {
 
-    void showErrorMsg(String msg);
-
-    //=======  State  =======
-    void stateError();
-
-    void stateEmpty();
-
-    void stateLoading();
-
-    void stateMain();
+    void showLoading(String title);
+    void stopLoading();
+    void showErrorTip(String msg);
 }
