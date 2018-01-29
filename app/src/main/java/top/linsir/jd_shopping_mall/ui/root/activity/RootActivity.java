@@ -14,6 +14,7 @@ import butterknife.BindView;
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BaseActivity;
 import top.linsir.jd_shopping_mall.di.component.AppComponent;
+import top.linsir.jd_shopping_mall.di.component.DaggerActivityComponent;
 import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
 import top.linsir.jd_shopping_mall.ui.root.presenter.RootPresenter;
 
@@ -29,8 +30,7 @@ public class RootActivity extends BaseActivity<RootPresenter> implements RootCon
     FrameLayout tabcontent;
     @BindView(R.id.tabHost)
     FragmentTabHost tabHost;
-    @Inject
-    RxPermissions mRxPermissions;
+
     @Override
     protected void getBundleExtras(Bundle extras) {
 
@@ -48,15 +48,15 @@ public class RootActivity extends BaseActivity<RootPresenter> implements RootCon
 
     }
 
-    @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-       // DaggerRootCompoent.builder().appComponent(appComponent).build().inject(this);
+
+        DaggerActivityComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
 
     @Override
     public RxPermissions getRxPermissions() {
-        return mRxPermissions;
+        return null;
     }
 
     @Override
