@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.support.multidex.MultiDex;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import top.linsir.jd_shopping_mall.di.component.AppComponent;
 import top.linsir.jd_shopping_mall.di.component.DaggerAppComponent;
 import top.linsir.jd_shopping_mall.di.module.AppModule;
@@ -47,7 +48,9 @@ public class App extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
         //初始化数据库
-        Realm.init(getApplicationContext());
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(config);
         //在子线程中完成其他初始化
         InitializeService.start(this);
         //网络状态监听
@@ -59,6 +62,8 @@ public class App extends Application {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+        NetStateReceiver.unRegisterNetworkStateReceiver(this);
+
         android.os.Process.killProcess(android.os.Process.myPid());
         exit(0);
     }
