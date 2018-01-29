@@ -7,9 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -23,12 +26,14 @@ import top.linsir.jd_shopping_mall.widght.StatusBarCompat;
  */
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+    protected final String TAG = this.getClass().getSimpleName();
     public Toolbar mToolbar;
     public TextView title;
     public ImageView back;
-    public TextView tv_menu;
-    public ImageView iv_menu;
-    public T mPresenter;
+
+
+    @Inject
+    protected T mPresenter;
     public Context mContext;
     public RxManager mRxManager;
     private Unbinder bind;
@@ -39,8 +44,28 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mRxManager = new RxManager();
         doBeforeSetcontentView();
         setContentView(getLayoutId());
-        bind= ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
+        mContext = this;
+        if (mPresenter != null) {
+            mPresenter.mContext = this;
+        }
+        initPresenter();
+        SetStatusBarColor();
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (null != mToolbar) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            initTitle();
+        }
+        Bundle extras = getIntent().getExtras();
+        if (null != extras) {
+            getBundleExtras(extras);
+        }
+        initView();
+
     }
+    protected abstract void getBundleExtras(Bundle extras);
     /**
      * 设置layout前配置
      */
@@ -54,12 +79,26 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         // 默认着色状态栏
         SetStatusBarColor();
     }
+    protected void initTitle() {
+        title = (TextView) findViewById(R.id.toolbar_title);
+        back = findViewById(R.id.toolbar_back);
+        if (null != back) {
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+    }
+
     /**
      * 着色状态栏（4.4以上系统有效）
      */
     protected void SetStatusBarColor() {
         StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.main_color));
     }
+
     /**
      * 着色状态栏（4.4以上系统有效）
      */
@@ -73,15 +112,25 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void SetTranslanteBar() {
         StatusBarCompat.translucentStatusBar(this);
     }
+
     //获取布局文件
     public abstract int getLayoutId();
+
+    //简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
+    public abstract void initPresenter();
+
+    //初始化view
+    public abstract void initView();
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mPresenter != null)
             mPresenter.onDestroy();
         mRxManager.clear();
-        bind.unbind();
+        if (bind != null && bind != Unbinder.EMPTY)
+            bind.unbind();
         AppManager.getAppManager().finishActivity(this);
     }
+
+
 }
