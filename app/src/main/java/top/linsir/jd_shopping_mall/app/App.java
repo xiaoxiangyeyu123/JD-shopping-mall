@@ -9,6 +9,7 @@ import io.realm.Realm;
 import top.linsir.jd_shopping_mall.di.component.AppComponent;
 import top.linsir.jd_shopping_mall.di.component.DaggerAppComponent;
 import top.linsir.jd_shopping_mall.di.module.AppModule;
+import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetStateReceiver;
 import top.linsir.jd_shopping_mall.service.InitializeService;
 
 import static java.lang.System.exit;
@@ -21,6 +22,7 @@ import static java.lang.System.exit;
 public class App extends Application {
     private static App instance;
     public static AppComponent appComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -48,6 +50,9 @@ public class App extends Application {
         Realm.init(getApplicationContext());
         //在子线程中完成其他初始化
         InitializeService.start(this);
+        //网络状态监听
+        NetStateReceiver.registerNetworkStateReceiver(this);//初始化网络监听
+
     }
 
 
@@ -57,7 +62,8 @@ public class App extends Application {
         android.os.Process.killProcess(android.os.Process.myPid());
         exit(0);
     }
-    public static AppComponent getAppComponent(){
+
+    public static AppComponent getAppComponent() {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(instance))

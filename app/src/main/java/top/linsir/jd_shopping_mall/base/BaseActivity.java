@@ -1,7 +1,9 @@
 package top.linsir.jd_shopping_mall.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +24,10 @@ import top.linsir.jd_shopping_mall.app.AppManager;
 import top.linsir.jd_shopping_mall.di.component.ActivityComponent;
 import top.linsir.jd_shopping_mall.di.component.DaggerActivityComponent;
 import top.linsir.jd_shopping_mall.di.module.ActivityModule;
+import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetChangeObserver;
+import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetStateReceiver;
+import top.linsir.jd_shopping_mall.utils.ToastUtils;
+import top.linsir.jd_shopping_mall.widght.LoadingDialog;
 import top.linsir.jd_shopping_mall.widght.StatusBarCompat;
 
 /**
@@ -34,14 +40,13 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     public Toolbar mToolbar;
     public TextView title;
     public ImageView back;
-
-
     @Inject
     protected T mPresenter;
     public Context mContext;
     public RxManager mRxManager;
     private Unbinder bind;
-
+    protected NetChangeObserver mNetChangeObserver = null;
+    protected boolean network = true;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +56,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         bind = ButterKnife.bind(this);
         mContext = this;
         initInject();
-       
-        SetStatusBarColor();
-
+        initNetWorkState();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (null != mToolbar) {
             setSupportActionBar(mToolbar);
@@ -67,17 +70,50 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         initView();
 
     }
-    protected ActivityComponent getActivityComponent(){
-        return  DaggerActivityComponent.builder()
+
+    protected void initNetWorkState() {
+        mNetChangeObserver = new NetChangeObserver() {
+            @Override
+            public void onNetConnected() {
+
+                onNetworkConnected();
+                network = true;
+            }
+
+            @Override
+            public void onNetDisConnect() {
+                network = false;
+                onNetworkDisConnected();
+            }
+        };
+
+        NetStateReceiver.registerObserver(mNetChangeObserver);
+    }
+    /**
+     * 网络连接状态
+     *
+     */
+    protected void onNetworkConnected() {
+    }
+
+    /**
+     * 网络断开的时候调用
+     */
+    protected void onNetworkDisConnected() {
+    }
+    protected ActivityComponent getActivityComponent() {
+        return DaggerActivityComponent.builder()
                 .appComponent(App.getAppComponent())
                 .activityModule(getActivityModule())
                 .build();
     }
-    protected ActivityModule getActivityModule(){
+
+    protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
     }
 
     protected abstract void getBundleExtras(Bundle extras);
+
     /**
      * 设置layout前配置
      */
@@ -89,8 +125,9 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // 默认着色状态栏
-        SetStatusBarColor();
+        initStatusBarColor();
     }
+
     protected void initTitle() {
         title = (TextView) findViewById(R.id.toolbar_title);
         back = findViewById(R.id.toolbar_back);
@@ -107,7 +144,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     /**
      * 着色状态栏（4.4以上系统有效）
      */
-    protected void SetStatusBarColor() {
+    protected void initStatusBarColor() {
         StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.main_color));
     }
 
@@ -133,6 +170,96 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
 
     //初始化view
     public abstract void initView();
+    /**
+     * @param clazz
+     * @param bundle 跳转页面
+     */
+    protected void readyGo(Class<?> clazz, Bundle bundle) {
+        Intent intent = new Intent(this, clazz);
+        if (null != bundle)
+            intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    protected void readyGo(Class<?> clazz) {
+        readyGo(clazz, null);
+    }
+
+    /**
+     * @param clazz  目标Activity
+     * @param bundle 数据
+     */
+    protected void readyGoThenKill(Class<?> clazz, Bundle bundle) {
+        readyGo(clazz, bundle);
+        finish();
+    }
+
+    /**
+     * startActivityForResult
+     *
+     * @param clazz       目标Activity
+     * @param requestCode 发送判断值
+     */
+    protected void readyGoForResult(Class<?> clazz, int requestCode) {
+        Intent intent = new Intent(this, clazz);
+        startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * startActivityForResult with bundle
+     *
+     * @param clazz       目标Activity
+     * @param requestCode 发送判断值
+     * @param bundle      数据
+     */
+    protected void readyGoForResult(Class<?> clazz, int requestCode, Bundle bundle) {
+        Intent intent = new Intent(this, clazz);
+        if (null != bundle) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 显示默认加载动画 默认加载文字
+     */
+    protected void showLoadingDialog() {
+        LoadingDialog.showLoadingDialog(this);
+    }
+
+    /**
+     * 取消加载动画
+     */
+    protected void cancelLoadingDialog() {
+        LoadingDialog.cancelLoadingDialog();
+    }
+
+    //Toast显示
+    protected void showShortToast(String string) {
+        ToastUtils.showShortToast(this, string);
+    }
+
+    protected void showShortToast(int stringId) {
+        ToastUtils.showShortToast(this, stringId);
+    }
+
+    protected void showLongToast(String string) {
+        ToastUtils.showShortToast(this, string);
+    }
+
+    protected void showLongToast(int stringId) {
+        ToastUtils.showShortToast(this, stringId);
+    }
+    @Override
+    public Resources getResources() {
+        //获取到resources对象
+        Resources res = super.getResources();
+        //修改configuration的fontScale属性
+        res.getConfiguration().fontScale = 1;
+        //将修改后的值更新到metrics.scaledDensity属性上
+        res.updateConfiguration(null, null);
+        return res;
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -141,6 +268,8 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         mRxManager.clear();
         if (bind != null && bind != Unbinder.EMPTY)
             bind.unbind();
+        NetStateReceiver.removeRegisterObserver(mNetChangeObserver);
+        LoadingDialog.cancelLoadingDialog();
         AppManager.getAppManager().finishActivity(this);
     }
 
