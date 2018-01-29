@@ -17,7 +17,11 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import top.linsir.jd_shopping_mall.R;
+import top.linsir.jd_shopping_mall.app.App;
 import top.linsir.jd_shopping_mall.app.AppManager;
+import top.linsir.jd_shopping_mall.di.component.ActivityComponent;
+import top.linsir.jd_shopping_mall.di.component.DaggerActivityComponent;
+import top.linsir.jd_shopping_mall.di.module.ActivityModule;
 import top.linsir.jd_shopping_mall.widght.StatusBarCompat;
 
 /**
@@ -25,7 +29,7 @@ import top.linsir.jd_shopping_mall.widght.StatusBarCompat;
  * 邮箱：879689064@qq.com
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
     public Toolbar mToolbar;
     public TextView title;
@@ -46,10 +50,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         setContentView(getLayoutId());
         bind = ButterKnife.bind(this);
         mContext = this;
-        if (mPresenter != null) {
-            mPresenter.mContext = this;
-        }
-        initPresenter();
+        initInject();
+       
         SetStatusBarColor();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -65,6 +67,16 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         initView();
 
     }
+    protected ActivityComponent getActivityComponent(){
+        return  DaggerActivityComponent.builder()
+                .appComponent(App.getAppComponent())
+                .activityModule(getActivityModule())
+                .build();
+    }
+    protected ActivityModule getActivityModule(){
+        return new ActivityModule(this);
+    }
+
     protected abstract void getBundleExtras(Bundle extras);
     /**
      * 设置layout前配置
@@ -116,8 +128,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     //获取布局文件
     public abstract int getLayoutId();
 
-    //简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
-    public abstract void initPresenter();
+
+    public abstract void initInject();
 
     //初始化view
     public abstract void initView();
