@@ -5,7 +5,8 @@ import android.app.Activity;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 
-import top.linsir.jd_shopping_mall.base.BaseModel;
+import top.linsir.jd_shopping_mall.base.BaseContract;
+
 import top.linsir.jd_shopping_mall.base.BaseView;
 
 /**
@@ -21,6 +22,9 @@ public interface RootContract {
 
         Activity getActivity();
     }
-    interface Model extends BaseModel{
+
+    interface RoootModel<T> extends BaseContract.BasePresenter<T> {
+
+
     }
 }

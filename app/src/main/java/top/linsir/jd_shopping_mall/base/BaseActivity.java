@@ -15,20 +15,20 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSimpleAc
     @Inject
     protected T mPresenter;
 
-    protected abstract void initInject(AppComponent appComponent);
+    protected abstract void setupActivityComponent(AppComponent appComponent);
 
 
     @Override
     protected void onViewCreated() {
         super.onViewCreated();
-        initInject(App.getAppComponent());
+        setupActivityComponent(App.getAppComponent());
     }
 
     @Override
     protected void onDestroy() {
 
         if (mPresenter != null)
-            mPresenter.onDestroy();
+            mPresenter.detachView();
         this.mPresenter=null;
         super.onDestroy();
     }

@@ -10,11 +10,10 @@ import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
  * 邮箱：879689064@qq.com
  */
 @ActivityScope
-public class RootPresenter extends BasePresenter<RootContract.Model, RootContract.View>{
-
+public class RootPresenter extends BasePresenter<RootContract.View> implements RootContract.RoootModel<RootContract.View>{
     @Inject
-    public RootPresenter(RootContract.Model model,RootContract.View rootView) {
-        super(model, rootView);
+    public RootPresenter() {
+
     }
 
 }

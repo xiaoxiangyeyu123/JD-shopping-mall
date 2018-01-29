@@ -3,59 +3,30 @@ package top.linsir.jd_shopping_mall.base;
 import android.app.Activity;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import top.linsir.jd_shopping_mall.utils.PreconditionUtils;
 
 /**
  * 作者：潇湘夜雨 on 2018/1/28.
  * 邮箱：879689064@qq.com
  */
 
-public class BasePresenter<M extends BaseModel, V extends BaseView> implements IPresenter {
+public class BasePresenter< T extends BaseView> implements BaseContract.BasePresenter<T> {
     protected final String TAG = this.getClass().getSimpleName();
     protected CompositeDisposable mCompositeDisposable;
 
-    protected M mModel;
-    protected V mRootView;
+    protected T mView;
     public RxManager mRxManage = new RxManager();
 
-    /**
-     * 如果当前页面同时需要 Model 层和 View 层,则使用此构造函数(默认)
-     *
-     * @param model
-     * @param rootView
-     */
-    public BasePresenter(M model, V rootView) {
-        PreconditionUtils.checkNotNull(model, "%s cannot be null", BaseModel.class.getName());
-        PreconditionUtils.checkNotNull(rootView, "%s cannot be null", BaseView.class.getName());
-        this.mModel = model;
-        this.mRootView = rootView;
-        onStart();
-    }
 
-    /**
-     * 如果当前页面不需要操作数据,只需要 View 层,则使用此构造函数
-     *
-     * @param rootView
-     */
-    public BasePresenter(V rootView) {
-        PreconditionUtils.checkNotNull(rootView, "%s cannot be null", BaseView.class.getName());
-        this.mRootView = rootView;
-        onStart();
+    @Override
+    public void attachView(T view) {
+        this.mView = view;
     }
 
     @Override
-    public void onStart() {
-
-    }
-
-    @Override
-    public void onDestroy() {
+    public void detachView() {
         mRxManage.clear();
-        if (mModel != null)
-            mModel.onDestroy();
         unDispose();//解除订阅
-        this.mModel = null;
-        this.mRootView = null;
+        this.mView = null;
         this.mCompositeDisposable = null;
     }
 

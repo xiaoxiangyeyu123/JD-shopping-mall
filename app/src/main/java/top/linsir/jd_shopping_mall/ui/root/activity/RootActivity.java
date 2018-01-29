@@ -49,7 +49,7 @@ public class RootActivity extends BaseActivity<RootPresenter> implements RootCon
     }
 
     @Override
-    protected void initInject(AppComponent appComponent) {
+    protected void setupActivityComponent(AppComponent appComponent) {
        // DaggerRootCompoent.builder().appComponent(appComponent).build().inject(this);
     }
 
