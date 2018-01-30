@@ -14,13 +14,12 @@ public interface RootContract {
 
     interface View extends BaseView {
 
-        //申请权限
-        void checkPermissions(RxPermissions rxPermissions);
+
         Activity getActivity();
     }
 
     interface Presenter extends BasePresenter<View> {
-
+        void checkPermissions(RxPermissions rxPermissions);
 
     }
 }
