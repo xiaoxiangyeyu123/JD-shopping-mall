@@ -1,10 +1,15 @@
 package top.linsir.jd_shopping_mall.ui.root.presenter;
 
 import android.Manifest;
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
+import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BasePresenter;
 import top.linsir.jd_shopping_mall.base.RxPresenter;
 import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
@@ -17,7 +22,11 @@ import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
  */
 @ActivityScope
 public class RootPresenter extends RxPresenter<RootContract.View> implements RootContract.Presenter {
+//    private Class fragmentArray[] = {MainFragment.class, MessageFragment.class, PersonFragment.class};
+//    private String texts[] = {"首页", "分类", "发现","购物车","我的"};
+//    private int imageButton[] = {R.drawable.selector_home, R.drawable.selector_car, R.drawable.selector_person};
     @Inject
+
     public RootPresenter() {
 
     }
@@ -34,7 +43,15 @@ public class RootPresenter extends RxPresenter<RootContract.View> implements Roo
                         }
                     }
                 }));
-
+    }
+    @Override
+    public View getView(Context context, int i) {
+        View view = View.inflate(context, R.layout.view_tab, null);
+        ImageView imageView =  view.findViewById(R.id.image);
+        TextView textView = view.findViewById(R.id.text);
+//        imageView.setImageResource(imageButton[i]);
+//        textView.setText(texts[i]);
+        return view;
     }
 }
 

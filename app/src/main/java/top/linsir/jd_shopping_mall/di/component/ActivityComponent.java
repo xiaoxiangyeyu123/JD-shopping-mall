@@ -3,6 +3,7 @@ package top.linsir.jd_shopping_mall.di.component;
 import android.app.Activity;
 
 import dagger.Component;
+import top.linsir.jd_shopping_mall.di.module.ActivityModule;
 import top.linsir.jd_shopping_mall.di.scope.ActivityScope;
 import top.linsir.jd_shopping_mall.ui.root.activity.RootActivity;
 
@@ -11,8 +12,8 @@ import top.linsir.jd_shopping_mall.ui.root.activity.RootActivity;
  * 邮箱：879689064@qq.com
  */
 @ActivityScope
-@Component(dependencies = AppComponent.class)
+@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-
+    Activity getActivity();
     void inject(RootActivity activity);
 }

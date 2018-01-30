@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.widget.FrameLayout;
+import android.widget.TabHost;
 
 import butterknife.BindView;
 import top.linsir.jd_shopping_mall.R;
@@ -20,7 +21,7 @@ import top.linsir.jd_shopping_mall.ui.root.presenter.RootPresenter;
  * 邮箱：879689064@qq.com
  */
 
-public class RootActivity extends BaseActivity<RootPresenter> implements RootContract.View {
+public class RootActivity extends BaseActivity<RootPresenter> implements RootContract.View,TabHost.OnTabChangeListener {
     @BindView(R.id.maincontent)
     FrameLayout maincontent;
     @BindView(android.R.id.tabcontent)
@@ -62,6 +63,11 @@ public class RootActivity extends BaseActivity<RootPresenter> implements RootCon
     }
 
     @Override
+    public void setIndexTab(int index) {
+        tabHost.setCurrentTab(index);
+    }
+
+    @Override
     public void showLoading(String title) {
 
     }
@@ -74,6 +80,11 @@ public class RootActivity extends BaseActivity<RootPresenter> implements RootCon
     @Override
     public void showErrorTip(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    public void onTabChanged(String s) {
+
     }
 }
 
