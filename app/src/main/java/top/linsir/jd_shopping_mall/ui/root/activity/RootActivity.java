@@ -5,14 +5,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.widget.FrameLayout;
-
-import com.tbruyelle.rxpermissions.RxPermissions;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BaseActivity;
+import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
 import top.linsir.jd_shopping_mall.di.component.AppComponent;
 import top.linsir.jd_shopping_mall.di.component.DaggerActivityComponent;
 import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
@@ -47,7 +43,7 @@ public class RootActivity extends BaseActivity<RootPresenter> implements RootCon
 
 
     }
-
+    @Override
     protected void setupActivityComponent(AppComponent appComponent) {
 
         DaggerActivityComponent.builder().appComponent(appComponent).build().inject(this);
@@ -55,8 +51,8 @@ public class RootActivity extends BaseActivity<RootPresenter> implements RootCon
 
 
     @Override
-    public RxPermissions getRxPermissions() {
-        return null;
+    public void checkPermissions(RxPermissions rxPermissions) {
+
     }
 
     @Override

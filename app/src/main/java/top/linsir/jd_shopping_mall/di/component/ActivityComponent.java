@@ -14,5 +14,5 @@ import top.linsir.jd_shopping_mall.ui.root.activity.RootActivity;
 @Component(dependencies = AppComponent.class)
 public interface ActivityComponent {
 
-    RootActivity inject(RootActivity activity);
+    void inject(RootActivity activity);
 }

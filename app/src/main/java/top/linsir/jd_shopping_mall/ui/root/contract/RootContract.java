@@ -1,13 +1,9 @@
 package top.linsir.jd_shopping_mall.ui.root.contract;
 
 import android.app.Activity;
-
-
-import com.tbruyelle.rxpermissions.RxPermissions;
-
-import top.linsir.jd_shopping_mall.base.BaseContract;
-
+import top.linsir.jd_shopping_mall.base.BasePresenter;
 import top.linsir.jd_shopping_mall.base.BaseView;
+import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
 
 /**
  * 作者：潇湘夜雨 on 2018/1/29.
@@ -17,13 +13,13 @@ import top.linsir.jd_shopping_mall.base.BaseView;
 public interface RootContract {
 
     interface View extends BaseView {
-        //申请权限
-        RxPermissions getRxPermissions();
 
+        //申请权限
+        void checkPermissions(RxPermissions rxPermissions);
         Activity getActivity();
     }
 
-    interface RoootModel<T> extends BaseContract.BasePresenter<T> {
+    interface Presenter extends BasePresenter<View> {
 
 
     }
