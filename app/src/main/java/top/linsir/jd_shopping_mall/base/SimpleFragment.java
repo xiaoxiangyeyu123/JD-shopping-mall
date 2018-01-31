@@ -8,10 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import top.linsir.jd_shopping_mall.R;
 
 /**
  * 作者：潇湘夜雨 on 2018/1/30.
@@ -44,6 +46,25 @@ public abstract class SimpleFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (rootView == null) {
+            return;
+        }
+        if (mIsFirstVisible && isVisibleToUser) {
+            mToolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+            if (null != mToolbar) {
+                initTitle();
+            }
+            initTitle();
+            initPresenter();
+            initView();
+            SetStatusBarColor();
+            mIsFirstVisible = false;
+        }
+    }
+
     /**
      * 获取bundle信息
      *
@@ -53,4 +74,12 @@ public abstract class SimpleFragment extends Fragment {
 
     //获取布局文件
     protected abstract int getLayoutResource();
+
+    //初始化view
+    protected abstract void initView();
+
+    protected void initTitle() {
+        title = rootView.findViewById(R.id.toolbar_title);
+        back = rootView.findViewById(R.id.toolbar_back);
+    }
 }
