@@ -20,7 +20,7 @@ import top.linsir.jd_shopping_mall.R;
  * 邮箱：879689064@qq.com
  */
 
-public abstract class SimpleFragment extends Fragment {
+public abstract class BasaFragment extends Fragment {
 
     public Toolbar mToolbar;
     public TextView title;
@@ -31,7 +31,7 @@ public abstract class SimpleFragment extends Fragment {
     protected final String TAG = this.getClass().getSimpleName();
     private boolean mIsFirstVisible = true;
 
-    public SimpleFragment() { /* compiled code */ }
+    public BasaFragment() { /* compiled code */ }
 
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
