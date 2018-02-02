@@ -71,10 +71,6 @@ public abstract class BaseActivity<T extends BasePresenter, M extends BaseModel>
 
     }
 
-    protected void onViewCreated() {
-
-    }
-
     protected void initNetWorkState() {
         mNetChangeObserver = new NetChangeObserver() {
             @Override
@@ -124,7 +120,7 @@ public abstract class BaseActivity<T extends BasePresenter, M extends BaseModel>
     }
 
     protected void initTitle() {
-        title = (TextView) findViewById(R.id.toolbar_title);
+        title = findViewById(R.id.toolbar_title);
         back = findViewById(R.id.toolbar_back);
         if (null != back) {
             back.setOnClickListener(new View.OnClickListener() {

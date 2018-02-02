@@ -13,6 +13,7 @@ import top.linsir.jd_shopping_mall.base.BaseActivity;
 import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
 
 import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
+import top.linsir.jd_shopping_mall.ui.root.model.RootModel;
 import top.linsir.jd_shopping_mall.ui.root.presenter.RootPresenter;
 
 /**
@@ -20,7 +21,7 @@ import top.linsir.jd_shopping_mall.ui.root.presenter.RootPresenter;
  * 邮箱：879689064@qq.com
  */
 
-public class RootActivity extends BaseActivity implements RootContract.View,TabHost.OnTabChangeListener {
+public class RootActivity extends BaseActivity<RootPresenter,RootModel> implements RootContract.View,TabHost.OnTabChangeListener {
     @BindView(R.id.maincontent)
     FrameLayout maincontent;
     @BindView(android.R.id.tabcontent)
@@ -56,10 +57,6 @@ public class RootActivity extends BaseActivity implements RootContract.View,TabH
       //  mPresenter.checkPermissions(new RxPermissions(this));
     }
 
-    @Override
-    public Activity getActivity() {
-        return this;
-    }
 
     @Override
     public void setIndexTab(int index) {

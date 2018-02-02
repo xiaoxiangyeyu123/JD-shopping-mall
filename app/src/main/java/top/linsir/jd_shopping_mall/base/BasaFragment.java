@@ -1,8 +1,10 @@
 package top.linsir.jd_shopping_mall.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,10 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import top.linsir.jd_shopping_mall.R;
+import top.linsir.jd_shopping_mall.utils.ToastUtils;
+import top.linsir.jd_shopping_mall.utils.instance.InstanceUtil;
+import top.linsir.jd_shopping_mall.widght.LoadingDialog;
+import top.linsir.jd_shopping_mall.widght.StatusBarCompat;
 
 
 /**
@@ -19,7 +25,7 @@ import top.linsir.jd_shopping_mall.R;
  * 邮箱：879689064@qq.com
  */
 
-public abstract class BasaFragment  extends Fragment  {
+public abstract class BasaFragment<T extends BasePresenter, M extends BaseModel> extends Fragment {
     public Toolbar mToolbar;
     public TextView title;
     public View back;
@@ -28,6 +34,7 @@ public abstract class BasaFragment  extends Fragment  {
     private Unbinder bind;
     protected final String TAG = this.getClass().getSimpleName();
     private boolean mIsFirstVisible = true;
+    public T mPresenter;
 
     public BasaFragment() { /* compiled code */ }
 
@@ -51,16 +58,29 @@ public abstract class BasaFragment  extends Fragment  {
             return;
         }
         if (mIsFirstVisible && isVisibleToUser) {
-            mToolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-            if (null != mToolbar) {
-                initTitle();
+            mPresenter = InstanceUtil.getInstance(this, 0);
+            M mModel = InstanceUtil.getInstance(this, 1);
+
+            if (mPresenter != null) {
+                mPresenter.mContext = this.getActivity();
             }
+            mToolbar = rootView.findViewById(R.id.toolbar);
             initTitle();
-        //    initPresenter();
+
+            if (mPresenter != null && this instanceof BaseView) {
+                mPresenter.mContext = this.getActivity();
+                mPresenter.setVM(this, mModel);
+            }
             initView();
-          //  SetStatusBarColor();
+            //  SetStatusBarColor();
             mIsFirstVisible = false;
+            initView();
+            SetStatusBarColor();
         }
+    }
+
+    private void SetStatusBarColor() {
+        StatusBarCompat.setStatusBarColor(getActivity(), ContextCompat.getColor(getActivity(), R.color.main_color));
     }
 
     /**
@@ -76,8 +96,71 @@ public abstract class BasaFragment  extends Fragment  {
     //初始化view
     protected abstract void initView();
 
+    public <T> T findViewbyId(int id) {
+        return (T) rootView.findViewById(id);
+    }
+
     protected void initTitle() {
         title = rootView.findViewById(R.id.toolbar_title);
         back = rootView.findViewById(R.id.toolbar_back);
+    }
+
+    protected void showLoadingDialog() {
+        LoadingDialog.showLoadingDialog(getActivity());
+    }
+
+    protected void cancelLoadingDialog() {
+        LoadingDialog.cancelLoadingDialog();
+    }
+
+    //Toast显示
+    protected void showShortToast(String string) {
+        ToastUtils.showShortToast(getActivity(), string);
+    }
+
+    protected void showShortToast(int stringId) {
+        ToastUtils.showShortToast(getActivity(), stringId);
+    }
+
+    protected void showLongToast(String string) {
+        ToastUtils.showShortToast(getActivity(), string);
+    }
+    protected void showLongToast(int stringId) {
+        ToastUtils.showShortToast(getActivity(), stringId);
+    }
+
+    protected void readyGo(Class<?> clazz) {
+        Intent intent = new Intent(getActivity(), clazz);
+        startActivity(intent);
+    }
+
+    protected void readyGo(Class<?> clazz, Bundle bundle) {
+        Intent intent = new Intent(getActivity(), clazz);
+        if (null != bundle) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+    protected void readyGoForResult(Class<?> clazz, int requestCode) {
+        Intent intent = new Intent(getActivity(), clazz);
+        startActivityForResult(intent, requestCode);
+    }
+
+    protected void readyGoForResult(Class<?> clazz, int requestCode, Bundle bundle) {
+        Intent intent = new Intent(getActivity(), clazz);
+        if (null != bundle) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        cancelLoadingDialog();
+        bind.unbind();
+        if (mPresenter != null)
+            mPresenter.detachView();
+        mRxManager.clear();
     }
 }

@@ -1,8 +1,9 @@
 package top.linsir.jd_shopping_mall.ui.root.contract;
 
-import android.app.Activity;
 import android.content.Context;
 
+import jd_shopping_mall.linsir.top.anno.InstanceFactory;
+import top.linsir.jd_shopping_mall.base.BaseModel;
 import top.linsir.jd_shopping_mall.base.BasePresenter;
 import top.linsir.jd_shopping_mall.base.BaseView;
 import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
@@ -13,19 +14,19 @@ import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
  */
 
 public interface RootContract {
+    interface Model extends BaseModel {
+
+    }
 
     interface View extends BaseView {
-
-
-        Activity getActivity();
 
         void setIndexTab(int index);
     }
 
-    interface Presenter extends BasePresenter<View> {
-        void checkPermissions(RxPermissions rxPermissions);
+    abstract static class Presenter extends BasePresenter<RootContract.Model,RootContract.View> {
+        public abstract void checkPermissions(RxPermissions rxPermissions);
 
-        android.view.View getView(Context context, int i);
+        public abstract android.view.View getView(Context context, int i);
 
     }
 }
