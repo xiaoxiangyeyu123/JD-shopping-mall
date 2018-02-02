@@ -13,18 +13,16 @@ import top.linsir.jd_shopping_mall.utils.instance.InstanceUtil;
  * 邮箱：879689064@qq.com
  */
 
-public abstract class MvpBaseActivity<T extends BasePresenter> extends BaseActivity {
+public abstract class MvpBaseActivity<T extends BasePresenter,M extends BaseModel> extends BaseActivity {
     protected T mPresenter;
-
-    //protected abstract void setupActivityComponent(AppComponent appComponent);
-
 
     @Override
     protected void onViewCreated() {
         super.onViewCreated();
         mPresenter= InstanceUtil.getInstance(this,0);
+        M mModel=InstanceUtil.getInstance(this,1);
+        if(mPresenter!=null&&this instanceof BaseView)mPresenter.setVM(this,mModel);
 
-       // setupActivityComponent(App.getAppComponent());
     }
 
     @Override

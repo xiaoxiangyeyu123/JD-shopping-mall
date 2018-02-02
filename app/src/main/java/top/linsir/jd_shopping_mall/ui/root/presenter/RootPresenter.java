@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 
 import io.reactivex.functions.Consumer;
+import jd_shopping_mall.linsir.top.anno.InstanceFactory;
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BasePresenter;
 import top.linsir.jd_shopping_mall.base.RxPresenter;
@@ -20,6 +21,7 @@ import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
  * 作者：潇湘夜雨 on 2018/1/29.
  * 邮箱：879689064@qq.com
  */
+@InstanceFactory()
 public class RootPresenter extends RxPresenter<RootContract.View> implements RootContract.Presenter {
 //    private Class fragmentArray[] = {MainFragment.class, MessageFragment.class, PersonFragment.class};
 //    private String texts[] = {"首页", "分类", "发现","购物车","我的"};

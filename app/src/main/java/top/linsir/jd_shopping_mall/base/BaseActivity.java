@@ -39,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder bind;
     protected NetChangeObserver mNetChangeObserver = null;
     protected boolean network = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mContext = this;
         onViewCreated();
         initNetWorkState();
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         if (null != mToolbar) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -62,9 +63,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
 
     }
+
     protected void onViewCreated() {
 
     }
+
     protected void initNetWorkState() {
         mNetChangeObserver = new NetChangeObserver() {
             @Override
@@ -83,9 +86,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         NetStateReceiver.registerObserver(mNetChangeObserver);
     }
+
     /**
      * 网络连接状态
-     *
      */
     protected void onNetworkConnected() {
     }
@@ -151,9 +154,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract int getLayoutId();
 
 
-
     //初始化view
     public abstract void initView();
+
     /**
      * @param clazz
      * @param bundle 跳转页面
@@ -234,6 +237,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void showLongToast(int stringId) {
         ToastUtils.showShortToast(this, stringId);
     }
+
+    public <T> T findViewbyId(int id) {
+        return (T) findViewById(id);
+    }
+
     @Override
     public Resources getResources() {
         //获取到resources对象
@@ -244,6 +252,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         res.updateConfiguration(null, null);
         return res;
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
