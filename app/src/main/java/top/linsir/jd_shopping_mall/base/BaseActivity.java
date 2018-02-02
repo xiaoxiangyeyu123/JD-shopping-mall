@@ -21,6 +21,7 @@ import top.linsir.jd_shopping_mall.app.AppManager;
 import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetChangeObserver;
 import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetStateReceiver;
 import top.linsir.jd_shopping_mall.utils.ToastUtils;
+import top.linsir.jd_shopping_mall.utils.instance.InstanceUtil;
 import top.linsir.jd_shopping_mall.widght.LoadingDialog;
 import top.linsir.jd_shopping_mall.widght.StatusBarCompat;
 
@@ -29,7 +30,7 @@ import top.linsir.jd_shopping_mall.widght.StatusBarCompat;
  * 邮箱：879689064@qq.com
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter, M extends BaseModel> extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
     public Toolbar mToolbar;
     public TextView title;
@@ -39,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder bind;
     protected NetChangeObserver mNetChangeObserver = null;
     protected boolean network = true;
+    protected T mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +50,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         bind = ButterKnife.bind(this);
         mContext = this;
-        onViewCreated();
+        mPresenter = InstanceUtil.getInstance(this, 0);
+        M mModel = InstanceUtil.getInstance(this, 1);
+        if (mPresenter != null && this instanceof BaseView) {
+            mPresenter.mContext = this;
+            mPresenter.setVM(this, mModel);
+        }
         initNetWorkState();
         mToolbar = findViewById(R.id.toolbar);
         if (null != mToolbar) {
@@ -256,7 +263,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        if (mPresenter != null)
+            mPresenter.detachView();
+        this.mPresenter = null;
         mRxManager.clear();
         if (bind != null && bind != Unbinder.EMPTY)
             bind.unbind();
