@@ -7,13 +7,12 @@ import android.support.multidex.MultiDex;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import top.linsir.jd_shopping_mall.di.component.AppComponent;
 
-
-import top.linsir.jd_shopping_mall.di.module.AppModule;
 import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetStateReceiver;
 import top.linsir.jd_shopping_mall.service.InitializeService;
-
+import top.linsir.jd_shopping_mall.utils.instance.IFactory;
+import top.linsir.jd_shopping_mall.utils.instance.InstanceUtil;
+import top.linsir.jd_shopping_mall.apt.InstanceFactory;
 import static java.lang.System.exit;
 
 /**
@@ -54,6 +53,13 @@ public class App extends Application {
         Realm.setDefaultConfiguration(config);
         //在子线程中完成其他初始化
         InitializeService.start(this);
+        //初始化
+        InstanceUtil.init(new IFactory() {
+            @Override
+            public Object create(Class clazz) throws Exception {
+                return InstanceFactory.create(clazz);
+            }
+        });
         //网络状态监听
         NetStateReceiver.registerNetworkStateReceiver(this);//初始化网络监听
 

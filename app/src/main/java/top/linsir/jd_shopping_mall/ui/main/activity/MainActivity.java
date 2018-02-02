@@ -7,7 +7,7 @@ import butterknife.BindView;
 import io.reactivex.functions.Consumer;
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BaseActivity;
-import top.linsir.jd_shopping_mall.base.BaseSimpleActivity;
+
 //    RxView.clicks(button)
 //            //   .sample(1,TimeUnit.SECONDS)
 //            .throttleFirst(3, TimeUnit.SECONDS)//在一秒内只取第一次点击
@@ -24,7 +24,7 @@ import top.linsir.jd_shopping_mall.base.BaseSimpleActivity;
  * 邮箱：879689064@qq.com
  */
 
-public class MainActivity extends BaseSimpleActivity {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.maincontent)
     FrameLayout maincontent;
     @BindView(android.R.id.tabcontent)

@@ -6,26 +6,24 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import javax.inject.Inject;
+
 
 import io.reactivex.functions.Consumer;
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BasePresenter;
 import top.linsir.jd_shopping_mall.base.RxPresenter;
 import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
-import top.linsir.jd_shopping_mall.di.scope.ActivityScope;
+
 import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
 
 /**
  * 作者：潇湘夜雨 on 2018/1/29.
  * 邮箱：879689064@qq.com
  */
-@ActivityScope
 public class RootPresenter extends RxPresenter<RootContract.View> implements RootContract.Presenter {
 //    private Class fragmentArray[] = {MainFragment.class, MessageFragment.class, PersonFragment.class};
 //    private String texts[] = {"首页", "分类", "发现","购物车","我的"};
 //    private int imageButton[] = {R.drawable.selector_home, R.drawable.selector_car, R.drawable.selector_person};
-    @Inject
 
     public RootPresenter() {
 

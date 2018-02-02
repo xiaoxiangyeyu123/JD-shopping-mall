@@ -1,7 +1,5 @@
 package top.linsir.jd_shopping_mall.model.db;
 
-import javax.inject.Inject;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -16,7 +14,6 @@ public class RealmHelper implements DBHelper {
 
     private Realm mRealm;
 
-    @Inject
     public RealmHelper() {
         mRealm = Realm.getInstance(new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()

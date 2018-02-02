@@ -1,11 +1,11 @@
 package top.linsir.jd_shopping_mall.base;
 
 
-import javax.inject.Inject;
 
 import top.linsir.jd_shopping_mall.app.App;
 import top.linsir.jd_shopping_mall.base.BasePresenter;
-import top.linsir.jd_shopping_mall.di.component.AppComponent;
+
+import top.linsir.jd_shopping_mall.utils.instance.InstanceUtil;
 
 
 /**
@@ -14,15 +14,16 @@ import top.linsir.jd_shopping_mall.di.component.AppComponent;
  */
 
 public abstract class MvpBaseActivity<T extends BasePresenter> extends BaseActivity {
-    @Inject
     protected T mPresenter;
 
-    protected abstract void setupActivityComponent(AppComponent appComponent);
+    //protected abstract void setupActivityComponent(AppComponent appComponent);
 
 
     @Override
     protected void onViewCreated() {
         super.onViewCreated();
+        mPresenter= InstanceUtil.getInstance(this,0);
+
        // setupActivityComponent(App.getAppComponent());
     }
 
