@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+dependencies {
+    compile 'com.google.auto.service:auto-service:1.+'
+    compile 'com.squareup:javapoet:1.9.0'
+    compile project(':anno')
+
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8

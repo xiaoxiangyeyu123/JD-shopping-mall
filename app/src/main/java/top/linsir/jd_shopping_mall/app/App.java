@@ -9,7 +9,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import top.linsir.jd_shopping_mall.di.component.AppComponent;
 
-import top.linsir.jd_shopping_mall.di.component.DaggerAppComponent;
+
 import top.linsir.jd_shopping_mall.di.module.AppModule;
 import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetStateReceiver;
 import top.linsir.jd_shopping_mall.service.InitializeService;
@@ -23,7 +23,7 @@ import static java.lang.System.exit;
 
 public class App extends Application {
     private static App instance;
-    public static AppComponent appComponent;
+  //  public static AppComponent appComponent;
 
     @Override
     public void onCreate() {
@@ -69,13 +69,13 @@ public class App extends Application {
         exit(0);
     }
 
-    public static AppComponent getAppComponent() {
-        if (appComponent == null) {
-            appComponent = DaggerAppComponent.builder()
-                    .appModule(new AppModule(instance))
-                    .build();
-
-        }
-        return appComponent;
-    }
+//    public static AppComponent getAppComponent() {
+//        if (appComponent == null) {
+//            appComponent = DaggerAppComponent.builder()
+//                    .appModule(new AppModule(instance))
+//                    .build();
+//
+//        }
+//        return appComponent;
+//    }
 }

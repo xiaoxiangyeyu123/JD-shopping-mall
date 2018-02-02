@@ -23,7 +23,7 @@ public abstract class MvpBaseActivity<T extends BasePresenter> extends BaseActiv
     @Override
     protected void onViewCreated() {
         super.onViewCreated();
-        setupActivityComponent(App.getAppComponent());
+       // setupActivityComponent(App.getAppComponent());
     }
 
     @Override
