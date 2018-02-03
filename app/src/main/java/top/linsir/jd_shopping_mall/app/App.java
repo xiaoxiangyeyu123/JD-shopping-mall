@@ -22,7 +22,6 @@ import static java.lang.System.exit;
 
 public class App extends Application {
     private static App instance;
-  //  public static AppComponent appComponent;
 
     @Override
     public void onCreate() {
@@ -75,13 +74,4 @@ public class App extends Application {
         exit(0);
     }
 
-//    public static AppComponent getAppComponent() {
-//        if (appComponent == null) {
-//            appComponent = DaggerAppComponent.builder()
-//                    .appModule(new AppModule(instance))
-//                    .build();
-//
-//        }
-//        return appComponent;
-//    }
 }
