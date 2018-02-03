@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import top.linsir.jd_shopping_mall.receiver.netstatereciver.NetChangeObserver;
-
 /**
  * 作者：潇湘夜雨 on 2018/1/29.
  * 邮箱：879689064@qq.com

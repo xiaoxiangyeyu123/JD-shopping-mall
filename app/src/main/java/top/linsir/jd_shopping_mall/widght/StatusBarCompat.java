@@ -45,7 +45,7 @@ public class StatusBarCompat {
                 //set child View not fill the system window
                 View mChildView = mContentView.getChildAt(0);
                 if (mChildView != null) {
-                    ViewCompat.setFitsSystemWindows(mChildView, true);
+                    mChildView.setFitsSystemWindows(true);
                 }
             } else {
                 ViewGroup mDecorView = (ViewGroup) window.getDecorView();
@@ -60,7 +60,7 @@ public class StatusBarCompat {
                     //add margin
                     View mContentChild = mContentView.getChildAt(0);
                     if (mContentChild != null) {
-                        ViewCompat.setFitsSystemWindows(mContentChild, false);
+                        mContentChild.setFitsSystemWindows(false);
                         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mContentChild.getLayoutParams();
                         lp.topMargin += statusBarHeight;
                         mContentChild.setLayoutParams(lp);
@@ -93,7 +93,7 @@ public class StatusBarCompat {
         //set child View not fill the system window
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
-            ViewCompat.setFitsSystemWindows(mChildView, false);
+            mChildView.setFitsSystemWindows(false);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

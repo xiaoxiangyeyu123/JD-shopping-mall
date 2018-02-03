@@ -19,7 +19,7 @@ import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
  * 邮箱：879689064@qq.com
  */
 @InstanceFactory()
-public class RootPresenter extends RootContract.Presenter  {
+public class RootPresenter extends RootContract.Presenter {
     private Class fragmentArray[] = {MainFragment.class, MainFragment.class, MainFragment.class, MainFragment.class, MainFragment.class};
     private int imageButton[] = {R.drawable.ic_home, R.drawable.ic_sort, R.drawable.ic_discover, R.drawable.ic_shopping, R.drawable.ic_me};
 
@@ -38,8 +38,7 @@ public class RootPresenter extends RootContract.Presenter  {
                 }));
     }
 
-    @Override
-    public View getView(int i) {
+    protected View getView(int i) {
         View view = View.inflate(mContext, R.layout.view_tab, null);
         ImageView imageView = view.findViewById(R.id.ivItem);
         imageView.setImageResource(imageButton[i]);
