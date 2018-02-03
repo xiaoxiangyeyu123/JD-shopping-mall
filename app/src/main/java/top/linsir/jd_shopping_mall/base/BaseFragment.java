@@ -25,7 +25,7 @@ import top.linsir.jd_shopping_mall.widght.StatusBarCompat;
  * 邮箱：879689064@qq.com
  */
 
-public abstract class BasaFragment<T extends BasePresenter, M extends BaseModel> extends Fragment {
+public abstract class BaseFragment<T extends BasePresenter, M extends BaseModel> extends Fragment {
     public Toolbar mToolbar;
     public TextView title;
     public View back;
@@ -36,8 +36,9 @@ public abstract class BasaFragment<T extends BasePresenter, M extends BaseModel>
     private boolean mIsFirstVisible = true;
     public T mPresenter;
 
-    public BasaFragment() { /* compiled code */ }
+    public BaseFragment() { /* compiled code */ }
 
+    @Override
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public abstract class BasaFragment<T extends BasePresenter, M extends BaseModel>
         if (rootView == null) {
             return;
         }
-        if (mIsFirstVisible && isVisibleToUser) {
+        if (mIsFirstVisible && isVisibleToUser){
             mPresenter = InstanceUtil.getInstance(this, 0);
             M mModel = InstanceUtil.getInstance(this, 1);
 

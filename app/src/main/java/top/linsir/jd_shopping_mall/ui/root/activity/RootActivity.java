@@ -1,8 +1,8 @@
 package top.linsir.jd_shopping_mall.ui.root.activity;
 
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.widget.FrameLayout;
 import android.widget.TabHost;
@@ -11,7 +11,6 @@ import butterknife.BindView;
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BaseActivity;
 import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
-
 import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
 import top.linsir.jd_shopping_mall.ui.root.model.RootModel;
 import top.linsir.jd_shopping_mall.ui.root.presenter.RootPresenter;
@@ -21,7 +20,7 @@ import top.linsir.jd_shopping_mall.ui.root.presenter.RootPresenter;
  * 邮箱：879689064@qq.com
  */
 
-public class RootActivity extends BaseActivity<RootPresenter,RootModel> implements RootContract.View,TabHost.OnTabChangeListener {
+public class RootActivity extends BaseActivity<RootPresenter, RootModel> implements RootContract.View, TabHost.OnTabChangeListener {
     @BindView(R.id.maincontent)
     FrameLayout maincontent;
     @BindView(android.R.id.tabcontent)
@@ -42,21 +41,20 @@ public class RootActivity extends BaseActivity<RootPresenter,RootModel> implemen
 
     @Override
     public void initView() {
-
         checkPermissions();
+        initFragment(getSupportFragmentManager(),tabHost);
     }
-
-//    @Override
-//    protected void setupActivityComponent(AppComponent appComponent) {
-//
-//        DaggerActivityComponent.builder().appComponent(appComponent).build().inject(this);
-//    }
 
 
     public void checkPermissions() {
-      //  mPresenter.checkPermissions(new RxPermissions(this));
+        mPresenter.checkPermissions(new RxPermissions(this));
     }
 
+
+    @Override
+    public void initFragment(FragmentManager supportFragmentManager, FragmentTabHost tabHost) {
+        mPresenter.initFragment(supportFragmentManager,tabHost);
+    }
 
     @Override
     public void setIndexTab(int index) {

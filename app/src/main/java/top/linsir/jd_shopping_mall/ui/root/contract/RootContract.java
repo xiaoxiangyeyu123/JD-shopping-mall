@@ -1,8 +1,10 @@
 package top.linsir.jd_shopping_mall.ui.root.contract;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTabHost;
 
-import jd_shopping_mall.linsir.top.anno.InstanceFactory;
+
 import top.linsir.jd_shopping_mall.base.BaseModel;
 import top.linsir.jd_shopping_mall.base.BasePresenter;
 import top.linsir.jd_shopping_mall.base.BaseView;
@@ -19,14 +21,18 @@ public interface RootContract {
     }
 
     interface View extends BaseView {
+        void initFragment(FragmentManager supportFragmentManager, FragmentTabHost tabHost);
 
         void setIndexTab(int index);
+
     }
 
-    abstract static class Presenter extends BasePresenter<RootContract.Model,RootContract.View> {
+    abstract static class Presenter extends BasePresenter<RootContract.Model, RootContract.View> {
         public abstract void checkPermissions(RxPermissions rxPermissions);
 
-        public abstract android.view.View getView(Context context, int i);
+        public abstract android.view.View getView(int i);
+
+        public abstract void initFragment(FragmentManager supportFragmentManager, FragmentTabHost tabHost);
 
     }
 }

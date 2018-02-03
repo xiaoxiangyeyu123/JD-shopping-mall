@@ -10,11 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath true
-            }
-        }
+
     }
     buildTypes {
         release {
@@ -22,10 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+
 
     lintOptions {
         abortOnError false
@@ -59,6 +52,5 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.5.1'
     implementation files('libs/commons-codec-1.6.jar')
     annotationProcessor project(':apt')
-    api project(':apt')
-    implementation project(':anno')
+    api project(':anno')
 }
