@@ -41,8 +41,8 @@ public class RootActivity extends BaseActivity<RootPresenter, RootModel> impleme
 
     @Override
     public void initView() {
-        checkPermissions();
         initFragment(getSupportFragmentManager(),tabHost);
+        checkPermissions();
     }
 
 
