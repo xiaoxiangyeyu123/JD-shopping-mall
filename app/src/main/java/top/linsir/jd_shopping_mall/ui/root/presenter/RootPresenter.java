@@ -11,11 +11,11 @@ import io.reactivex.functions.Consumer;
 import jd_shopping_mall.linsir.top.anno.InstanceFactory;
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.rxbase.RxPermissions;
-import top.linsir.jd_shopping_mall.ui.main.fragment.DiscoverFragment;
+import top.linsir.jd_shopping_mall.ui.find.fragment.FindFragment;
 import top.linsir.jd_shopping_mall.ui.main.fragment.MainFragment;
-import top.linsir.jd_shopping_mall.ui.main.fragment.MeFragment;
-import top.linsir.jd_shopping_mall.ui.main.fragment.ShoppingCarFragment;
-import top.linsir.jd_shopping_mall.ui.main.fragment.SortFragment;
+import top.linsir.jd_shopping_mall.ui.mine.fragment.MeFragment;
+import top.linsir.jd_shopping_mall.ui.shop.fragment.ShoppingCarFragment;
+import top.linsir.jd_shopping_mall.ui.type.fragment.TypeFragment;
 import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
 
 /**
@@ -24,7 +24,7 @@ import top.linsir.jd_shopping_mall.ui.root.contract.RootContract;
  */
 @InstanceFactory()
 public class RootPresenter extends RootContract.Presenter {
-    private Class fragmentArray[] = {MainFragment.class, SortFragment.class, DiscoverFragment.class, ShoppingCarFragment.class, MeFragment.class};
+    private Class fragmentArray[] = {MainFragment.class, TypeFragment.class, FindFragment.class, ShoppingCarFragment.class, MeFragment.class};
     private int imageButton[] = {R.drawable.ic_home, R.drawable.ic_sort, R.drawable.ic_discover, R.drawable.ic_shopping, R.drawable.ic_me};
 
 

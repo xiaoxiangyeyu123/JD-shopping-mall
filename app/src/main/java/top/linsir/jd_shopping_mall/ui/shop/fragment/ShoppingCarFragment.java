@@ -1,4 +1,4 @@
-package top.linsir.jd_shopping_mall.ui.main.fragment;
+package top.linsir.jd_shopping_mall.ui.shop.fragment;
 
 import android.os.Bundle;
 
@@ -8,11 +8,10 @@ import top.linsir.jd_shopping_mall.base.BaseFragment;
 /**
  * Created by linSir
  * date at 2018/2/5.
- * describe: 分类页面
+ * describe:
  */
 
-
-public class SortFragment extends BaseFragment {
+public class ShoppingCarFragment extends BaseFragment {
     @Override
     protected void getBundleExtras(Bundle bundle) {
 
@@ -20,7 +19,7 @@ public class SortFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_sort;
+        return R.layout.fragment_shopping_car;
     }
 
     @Override
@@ -28,5 +27,3 @@ public class SortFragment extends BaseFragment {
 
     }
 }
-
-

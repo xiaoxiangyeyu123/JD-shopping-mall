@@ -1,4 +1,4 @@
-package top.linsir.jd_shopping_mall.ui.main.fragment;
+package top.linsir.jd_shopping_mall.ui.find.fragment;
 
 import android.os.Bundle;
 
@@ -11,7 +11,7 @@ import top.linsir.jd_shopping_mall.base.BaseFragment;
  * describe:
  */
 
-public class DiscoverFragment extends BaseFragment {
+public class FindFragment extends BaseFragment {
     @Override
     protected void getBundleExtras(Bundle bundle) {
 

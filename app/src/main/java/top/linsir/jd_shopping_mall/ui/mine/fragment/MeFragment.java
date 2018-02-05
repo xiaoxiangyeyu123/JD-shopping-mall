@@ -1,9 +1,10 @@
-package top.linsir.jd_shopping_mall.ui.main.fragment;
+package top.linsir.jd_shopping_mall.ui.mine.fragment;
 
 import android.os.Bundle;
 
 import top.linsir.jd_shopping_mall.R;
 import top.linsir.jd_shopping_mall.base.BaseFragment;
+
 
 /**
  * Created by linSir
