@@ -25,7 +25,7 @@ public class RootActivity extends BaseActivity<RootPresenter, RootModel> impleme
     FrameLayout maincontent;
     @BindView(android.R.id.tabcontent)
     FrameLayout tabcontent;
-    @BindView(R.id.tabHost)
+    @BindView(R.id.tabhost)
     FragmentTabHost tabHost;
 
     @Override
