@@ -20,7 +20,7 @@ public class SortFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_sort;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class ShoppingCarFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_shopping_car;
     }
 
     @Override
