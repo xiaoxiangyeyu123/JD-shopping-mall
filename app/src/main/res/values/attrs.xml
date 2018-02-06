@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RaidoTextView">
+        <attr name="titleText" format="string" />
+        <attr name="background2" format="color"/>
+        <attr name="titleTextSize" format="dimension"/>
+        <attr name="titleTextColor" format="color"/>
+        <attr name="mCornerSize" format="integer"/>
+    </declare-styleable>
+</resources>
