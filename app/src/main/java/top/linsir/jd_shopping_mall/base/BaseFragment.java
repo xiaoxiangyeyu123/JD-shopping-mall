@@ -33,8 +33,8 @@ public abstract class BaseFragment<T extends BasePresenter, M extends BaseModel>
     public RxManager mRxManager;
     private Unbinder bind;
     protected final String TAG = this.getClass().getSimpleName();
-    private boolean mIsFirstVisible = true;
     public T mPresenter;
+    private boolean isPrepared;
 
     public BaseFragment() { /* compiled code */ }
 
@@ -49,36 +49,66 @@ public abstract class BaseFragment<T extends BasePresenter, M extends BaseModel>
             rootView = inflater.inflate(getLayoutResource(), container, false);
         mRxManager = new RxManager();
         bind = ButterKnife.bind(this, rootView);
+        if(getUserVisibleHint()){
+            if (isFirstVisible) {
+                onFirstUserVisible();
+                isFirstVisible = false;
+            }
+        }
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initPrepare();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+
         if (rootView == null) {
             return;
         }
-        if (mIsFirstVisible && isVisibleToUser){
-            mPresenter = InstanceUtil.getInstance(this, 0);
-            M mModel = InstanceUtil.getInstance(this, 1);
-
-            if (mPresenter != null) {
-                mPresenter.mContext = this.getActivity();
-            }
-            mToolbar = rootView.findViewById(R.id.toolbar);
-            initTitle();
-
-            if (mPresenter != null && this instanceof BaseView) {
-                mPresenter.mContext = this.getActivity();
-                mPresenter.setVM(this, mModel);
-            }
-            initView();
-            //  SetStatusBarColor();
-            mIsFirstVisible = false;
-            initView();
-            SetStatusBarColor();
+        if (isFirstVisible && isVisibleToUser) {
+            onFirstUserVisible();
+            isFirstVisible = false;
         }
     }
+
+    public synchronized void initPrepare() {
+        if (isPrepared) {
+            onFirstUserVisible();
+        } else {
+            isPrepared = true;
+        }
+    }
+
+    private boolean isFirstVisible  = true;
+
+
+    private void onFirstUserVisible() {
+        if (rootView == null) {
+            return;
+        }
+        mPresenter = InstanceUtil.getInstance(this, 0);
+        M mModel = InstanceUtil.getInstance(this, 1);
+
+        if (mPresenter != null) {
+            mPresenter.mContext = this.getActivity();
+        }
+        mToolbar = rootView.findViewById(R.id.toolbar);
+        initTitle();
+
+        if (mPresenter != null && this instanceof BaseView) {
+            mPresenter.mContext = this.getActivity();
+            mPresenter.setVM(this, mModel);
+        }
+        initView();
+        SetStatusBarColor();
+    }
+
 
     private void SetStatusBarColor() {
         StatusBarCompat.setStatusBarColor(getActivity(), ContextCompat.getColor(getActivity(), R.color.main_color));
@@ -126,6 +156,7 @@ public abstract class BaseFragment<T extends BasePresenter, M extends BaseModel>
     protected void showLongToast(String string) {
         ToastUtils.showShortToast(getActivity(), string);
     }
+
     protected void showLongToast(int stringId) {
         ToastUtils.showShortToast(getActivity(), stringId);
     }
@@ -142,6 +173,7 @@ public abstract class BaseFragment<T extends BasePresenter, M extends BaseModel>
         }
         startActivity(intent);
     }
+
     protected void readyGoForResult(Class<?> clazz, int requestCode) {
         Intent intent = new Intent(getActivity(), clazz);
         startActivityForResult(intent, requestCode);
