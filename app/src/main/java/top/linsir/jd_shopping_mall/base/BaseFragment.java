@@ -49,6 +49,8 @@ public abstract class BaseFragment<T extends BasePresenter, M extends BaseModel>
             rootView = inflater.inflate(getLayoutResource(), container, false);
         mRxManager = new RxManager();
         bind = ButterKnife.bind(this, rootView);
+        initView();
+
         return rootView;
     }
 
@@ -72,10 +74,8 @@ public abstract class BaseFragment<T extends BasePresenter, M extends BaseModel>
                 mPresenter.mContext = this.getActivity();
                 mPresenter.setVM(this, mModel);
             }
-            initView();
             //  SetStatusBarColor();
             mIsFirstVisible = false;
-            initView();
             SetStatusBarColor();
         }
     }
