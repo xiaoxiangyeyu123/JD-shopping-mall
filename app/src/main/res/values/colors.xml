@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="main_color">#FF4081</color>
 
+    <color name="colorWhite">#FFFFFFFF</color>
+
     <!--首页-->
     <color name="red">#FF4081</color>
     <color name="black">@android:color/black</color>
