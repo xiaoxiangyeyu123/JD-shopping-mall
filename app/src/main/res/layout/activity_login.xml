@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="10dp"
+            android:src="@mipmap/icon_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/jd_login"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/title_bar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="60dp">
+
+        <TextView
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/account" />
+
+        <EditText
+            android:id="@+id/input_username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/account"
+            android:layout_toRightOf="@+id/account"
+            android:background="@null"
+            android:hint="@string/input_user_name" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/hint"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="#dfdfdf" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/hint"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <TextView
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/password"
+            android:layout_toRightOf="@+id/password"
+            android:background="@null"
+            android:hint="@string/input_password"
+            android:inputType="textPassword" />
+
+
+        <ImageView
+            android:id="@+id/visible_password"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/icon_visible_password" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/hint2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="#dfdfdf" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/hint2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="#dfdfdf"
+        android:text="@string/login"
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/login"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/use_phone_register" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <ImageView
+            android:id="@+id/login_wechat"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginStart="60dp"
+            android:src="@mipmap/icon_wechat" />
+
+        <ImageView
+            android:id="@+id/login_qq"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            android:src="@mipmap/icon_qq" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_wechat"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/login_is_sure_intimity" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
