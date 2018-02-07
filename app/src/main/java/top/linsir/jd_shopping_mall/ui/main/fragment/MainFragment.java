@@ -95,9 +95,6 @@ public class MainFragment extends BaseFragment {
         mAdapter.setNewData(list2);
 
 
-        Toast.makeText(getActivity(), "---lin---> 111", Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), "---lin---> 111", Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), "---lin---> 111", Toast.LENGTH_SHORT).show();
 
 
 
