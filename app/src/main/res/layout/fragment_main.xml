@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:radiostyle="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -46,11 +46,11 @@
                 android:layout_toRightOf="@+id/scan"
                 android:layout_toStartOf="@id/redPacket"
                 android:padding="10dp"
-                radiostyle:background2="#00FFFF"
-                radiostyle:mCornerSize="40"
-                radiostyle:titleText="时令生鲜满199减50"
-                radiostyle:titleTextColor="#FFFFFF"
-                radiostyle:titleTextSize="14sp"
+                app:background2="#00FFFF"
+                app:mCornerSize="40"
+                app:titleText="时令生鲜满199减50"
+                app:titleTextColor="#FFFFFF"
+                app:titleTextSize="14sp"
 
 
                 />

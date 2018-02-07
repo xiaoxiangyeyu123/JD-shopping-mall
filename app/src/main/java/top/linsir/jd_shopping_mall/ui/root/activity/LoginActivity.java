@@ -1,8 +1,6 @@
 package top.linsir.jd_shopping_mall.ui.root.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -11,8 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 import top.linsir.jd_shopping_mall.R;
+import top.linsir.jd_shopping_mall.base.BaseActivity;
+import top.linsir.jd_shopping_mall.ui.root.contract.LoginContract;
+import top.linsir.jd_shopping_mall.ui.root.model.LoginModel;
+import top.linsir.jd_shopping_mall.ui.root.model.RootModel;
+import top.linsir.jd_shopping_mall.ui.root.presenter.LoginPresenter;
+import top.linsir.jd_shopping_mall.ui.root.presenter.RootPresenter;
 
 /**
  * Created by linSir
@@ -20,10 +24,10 @@ import top.linsir.jd_shopping_mall.R;
  * describe:
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> implements LoginContract.View {
 
 
-    @BindView(R.id.back)
+    @BindView(R.id.toolbar_back)
     ImageView back;
     @BindView(R.id.visible_password)
     ImageView visiblePassword;
@@ -41,37 +45,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText password;
 
 
+    @Override
+    protected void getBundleExtras(Bundle extras) {
+
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-        back.setOnClickListener(this);
-        visiblePassword.setOnClickListener(this);
-        login.setOnClickListener(this);
-        register.setOnClickListener(this);
+    public int getLayoutId() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    public void initView() {
+
+        mPresenter.initView(username, password);
     }
 
 
-    @Override
+    @OnClick({R.id.visible_password, R.id.login, R.id.login_wechat})
     public void onClick(View v) {
 
         switch (v.getId()) {
 
-            case R.id.back:
-                finish();
-                break;
-
             case R.id.visible_password:
-                if (password.getInputType() == InputType.TYPE_CLASS_TEXT) {
-                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                } else {
-                    password.setInputType(InputType.TYPE_CLASS_TEXT);
-                }
+                mPresenter.visiblePassword();
                 break;
 
             case R.id.login:
+                mPresenter.login();
                 /*
                     请求网络
                     地址: http://rap2api.taobao.org/app/mock/373/POST//login
@@ -91,5 +92,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
 
+    }
+
+    @Override
+    public void showLoading(String title) {
+
+    }
+
+    @Override
+    public void stopLoading() {
+
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+        showShortToast(msg);
     }
 }

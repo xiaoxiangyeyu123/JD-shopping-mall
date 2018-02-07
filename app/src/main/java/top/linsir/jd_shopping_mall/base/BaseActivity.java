@@ -34,7 +34,7 @@ public abstract class BaseActivity<T extends BasePresenter, M extends BaseModel>
     protected final String TAG = this.getClass().getSimpleName();
     public Toolbar mToolbar;
     public TextView title;
-    public ImageView back;
+    public View back;
     public Context mContext;
     public RxManager mRxManager;
     private Unbinder bind;
@@ -61,8 +61,8 @@ public abstract class BaseActivity<T extends BasePresenter, M extends BaseModel>
         if (null != mToolbar) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-            initTitle();
         }
+        initTitle();
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
             getBundleExtras(extras);

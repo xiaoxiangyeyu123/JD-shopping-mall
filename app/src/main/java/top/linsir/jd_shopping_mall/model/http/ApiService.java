@@ -2,6 +2,8 @@ package top.linsir.jd_shopping_mall.model.http;
 
 
 import io.reactivex.Flowable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import top.linsir.jd_shopping_mall.base.BaseRespose;
 import top.linsir.jd_shopping_mall.model.bean.User;
@@ -12,7 +14,10 @@ import top.linsir.jd_shopping_mall.model.bean.User;
  */
 
 public interface ApiService {
-    @POST("Home/User/login")
-    Flowable<BaseRespose<User>> postData();
+
+    @FormUrlEncoded
+    @POST("app/mock/373/POST//login")
+    Flowable<BaseRespose<User>> postLogin(@Field("phone") String phone
+            , @Field("password") String password);
 
 }

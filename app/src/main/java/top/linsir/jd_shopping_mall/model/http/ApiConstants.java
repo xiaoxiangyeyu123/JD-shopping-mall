@@ -2,7 +2,7 @@
 package top.linsir.jd_shopping_mall.model.http;
 
 public class ApiConstants {
-public static final String BASEURL="http://www.chewuyou.vip/index.php/Home/";
+public static final String BASEURL="http://rap2api.taobao.org/";
 public static final boolean LOG_DEBUG = false;
 
 
