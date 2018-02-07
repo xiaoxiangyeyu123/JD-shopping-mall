@@ -1,6 +1,7 @@
 package top.linsir.jd_shopping_mall.ui.root.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
@@ -43,6 +44,10 @@ public class RootActivity extends BaseActivity<RootPresenter, RootModel> impleme
     public void initView() {
         initFragment(getSupportFragmentManager(),tabHost);
         checkPermissions();
+
+        Intent intent = new Intent(RootActivity.this, LoginActivity.class);
+        startActivity(intent);
+
     }
 
 
