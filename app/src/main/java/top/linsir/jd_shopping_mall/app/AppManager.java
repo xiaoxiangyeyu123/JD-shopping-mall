@@ -22,7 +22,7 @@ public class AppManager {
      */
     public static AppManager getAppManager() {
         if (instance == null) {
-            synchronized (AppManager.class){
+            synchronized (AppManager.class) {
                 if(instance==null){
                     instance = new AppManager();
                     instance.activityStack = new Stack();

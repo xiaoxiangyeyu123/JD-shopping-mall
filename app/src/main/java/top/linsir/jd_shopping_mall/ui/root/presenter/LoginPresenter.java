@@ -41,6 +41,7 @@ public class LoginPresenter extends LoginContract.Presenter {
             @Override
             protected void _onNext(BaseRespose<User> userBaseRespose) {
                 Log.e(TAG,userBaseRespose.data.toString());
+                mView.finish();
             }
 
             @Override

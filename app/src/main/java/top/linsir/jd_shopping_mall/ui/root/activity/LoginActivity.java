@@ -73,19 +73,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
 
             case R.id.login:
                 mPresenter.login();
-                /*
-                    请求网络
-                    地址: http://rap2api.taobao.org/app/mock/373/POST//login
-                    入参:
-                    {
-                        "code": 0,
-                        "msg": "success",
-                        "data": {}
-                    }
-
-                    登录成功跳转主页
-                */
-
 
             case R.id.login_wechat:
 
@@ -107,5 +94,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     @Override
     public void showErrorTip(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
     }
 }

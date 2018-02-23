@@ -29,6 +29,8 @@ public class RootActivity extends BaseActivity<RootPresenter, RootModel> impleme
     @BindView(R.id.tabhost)
     FragmentTabHost tabHost;
 
+    int flag = 1;
+
     @Override
     protected void getBundleExtras(Bundle extras) {
 
@@ -45,8 +47,12 @@ public class RootActivity extends BaseActivity<RootPresenter, RootModel> impleme
         initFragment(getSupportFragmentManager(),tabHost);
         checkPermissions();
 
-        Intent intent = new Intent(RootActivity.this, LoginActivity.class);
-        startActivity(intent);
+        if (flag == 1) {
+            Intent intent = new Intent(RootActivity.this, LoginActivity.class);
+            startActivity(intent);
+            flag = 0;
+        }
+
 
     }
 

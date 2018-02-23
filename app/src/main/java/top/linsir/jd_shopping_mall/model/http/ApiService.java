@@ -10,7 +10,7 @@ import top.linsir.jd_shopping_mall.model.bean.User;
 
 
 /**
- * Created by boxu on 2017/4/4.
+ * Created by boxu on 2017/4/4. ApiService
  */
 
 public interface ApiService {
@@ -19,5 +19,13 @@ public interface ApiService {
     @POST("app/mock/373/POST//login")
     Flowable<BaseRespose<User>> postLogin(@Field("phone") String phone
             , @Field("password") String password);
+
+
+    @FormUrlEncoded
+    @POST("app/mock")
+    Flowable<BaseRespose<User>> postRegister(@Field("phone") String phone
+            , @Field("password") String password);
+
+
 
 }

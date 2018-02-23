@@ -10,24 +10,27 @@ import top.linsir.jd_shopping_mall.base.BaseView;
 import top.linsir.jd_shopping_mall.model.bean.User;
 
 /**
- * 作者：潇湘夜雨 on 2018/2/7.
- * 邮箱：879689064@qq.com
+ * Created by linSir
+ * date at 2018/2/19.
+ * describe:
  */
 
-public interface LoginContract {
+public interface RegisterContract {
+
     interface Model extends BaseModel {
-        Flowable<BaseRespose<User>> postLogin(String userName, String password);
+        Flowable<BaseRespose<User>> postRegister(String userName, String password);
+
     }
 
     interface View extends BaseView {
         void finish();
-
     }
 
-    abstract static class Presenter extends BasePresenter<LoginContract.Model, LoginContract.View> {
-        public abstract void initView(EditText username,EditText password);
-        public abstract void visiblePassword();
-        public abstract void login();
+    abstract static class Presenter extends BasePresenter<RegisterContract.Model, RegisterContract.View> {
+        public abstract void initView(EditText username, EditText password, EditText password2);
 
+        public abstract void register();
     }
+
+
 }
