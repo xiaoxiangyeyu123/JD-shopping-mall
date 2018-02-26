@@ -190,6 +190,8 @@ public abstract class BaseFragment<T extends BasePresenter, M extends BaseModel>
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        isPrepared=false;
+        isFirstVisible=true;
         cancelLoadingDialog();
         bind.unbind();
         if (mPresenter != null)
